@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BIP Schedule — Hack Yourself into a Sustainable (Business) Design</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --w-navy:     #002B6E;
+      --w-navy2:    #003087;
+      --w-lime:     #C8D400;
+      --w-lime-d:   #a8b200;
+      --w-white:    #ffffff;
+      --w-offwhite: #F5F6F0;
+      --w-gray:     #E8E9E3;
+      --w-gray2:    #6B6E5E;
+      --w-text:     #1A1A2E;
+
+      --c-before-bg: #EEF2FB; --c-before-dot: #002B6E; --c-before-bdr: #7A95D4; --c-before-txt: #002B6E;
+      --c-d1-bg: #F0F6EE;     --c-d1-dot: #2B6B3E;     --c-d1-bdr: #7DBF93;    --c-d1-txt: #1A4427;
+      --c-d2-bg: #EEF4F8;     --c-d2-dot: #005A8E;     --c-d2-bdr: #6EB2D8;    --c-d2-txt: #003A5C;
+      --c-d3-bg: #FAFBEA;     --c-d3-dot: #7A8200;     --c-d3-bdr: #C8D400;    --c-d3-txt: #4A5000;
+      --c-d4-bg: #FBF0EE;     --c-d4-dot: #8E3020;     --c-d4-bdr: #D4806B;    --c-d4-txt: #5C1E10;
+      --c-d5-bg: #F2F0FB;     --c-d5-dot: #4A3A9E;     --c-d5-bdr: #9A8ED4;    --c-d5-txt: #2E2266;
+      --c-after-bg: #EEF2FB;  --c-after-dot: #002B6E;  --c-after-bdr: #7A95D4; --c-after-txt: #002B6E;
+    }
+
+    body {
+      font-family: 'Source Sans 3', 'Source Sans Pro', Arial, sans-serif;
+      color: var(--w-text);
+      background: #f0f0ec;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .w-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      background: var(--w-white);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.10);
+    }
+
+    /* HEADER */
+    .w-header {
+      background: var(--w-navy);
+      padding: 1.5rem 1.5rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .w-header::after {
+      content: '';
+      display: block;
+      height: 6px;
+      background: var(--w-lime);
+      margin: 1.5rem -1.5rem 0;
+    }
+    .w-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .w-logo-mark {
+      width: 36px; height: 36px;
+      background: var(--w-lime);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700;
+      color: var(--w-navy);
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+    .w-logo-text { font-size: 15px; font-weight: 700; color: var(--w-white); letter-spacing: 0.04em; text-transform: uppercase; }
+    .w-logo-sub  { font-size: 10px; font-weight: 300; color: rgba(255,255,255,0.6); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 1px; }
+    .w-eyebrow   { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--w-lime); margin-bottom: 0.4rem; }
+    .w-title     { font-size: 22px; font-weight: 700; color: var(--w-white); line-height: 1.25; max-width: 500px; padding-bottom: 1.25rem; }
+
+    /* NAV */
+    .w-nav {
+      background: var(--w-offwhite);
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid var(--w-gray);
+      display: flex; gap: 6px; flex-wrap: wrap;
+    }
+    .w-btn {
+      font-family: 'Source Sans 3', Arial, sans-serif;
+      font-size: 12px; font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 2px;
+      border: 1.5px solid;
+      cursor: pointer;
+      transition: all 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .w-btn:hover { opacity: 0.8; }
+    .w-btn.all-active   { background: var(--w-navy); border-color: var(--w-navy); color: var(--w-white); }
+    .w-btn.all-inactive { background: transparent; border-color: var(--w-navy); color: var(--w-navy); }
+
+    /* TIMELINE */
+    .w-timeline { padding: 1.25rem 1.5rem 2rem; }
+
+    .w-phase { margin-bottom: 1rem; border: 1px solid var(--w-gray); border-radius: 3px; overflow: hidden; }
+
+    .w-phase-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 1rem; cursor: pointer; user-select: none;
+      border-left: 5px solid;
+    }
+    .w-phase-hd-left { display: flex; align-items: center; gap: 10px; }
+    .w-phase-dot     { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+    .w-phase-label   { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .w-phase-theme   { font-size: 14px; font-weight: 600; color: var(--w-text); }
+    .w-phase-right   { display: flex; align-items: center; gap: 8px; }
+
+    .w-date-badge {
+      font-size: 11px; font-weight: 600;
+      padding: 2px 10px; border-radius: 2px;
+      background: var(--w-navy); color: var(--w-white);
+      white-space: nowrap;
+    }
+    .w-chevron { font-size: 11px; color: var(--w-gray2); transition: transform 0.2s; display: inline-block; }
+    .w-chevron.open { transform: rotate(180deg); }
+
+    .w-phase-body { display: none; border-top: 1px solid var(--w-gray); }
+    .w-phase-body.open { display: block; }
+
+    .w-info-bar {
+      background: var(--w-navy); color: rgba(255,255,255,0.85);
+      padding: 0.55rem 1rem; font-size: 12px; font-weight: 400;
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      border-bottom: 3px solid var(--w-lime);
+    }
+
+    .w-sessions { padding: 0.25rem 0; }
+
+    .w-subhd {
+      background: var(--w-offwhite);
+      border-bottom: 1px solid var(--w-gray);
+      padding: 0.4rem 1rem;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--w-gray2);
+    }
+
+    .w-row {
+      display: grid;
+      grid-template-columns: 82px 1fr auto;
+      gap: 0.75rem; align-items: start;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--w-gray);
+      transition: background 0.1s;
+    }
+    .w-row:last-child { border-bottom: none; }
+    .w-row:hover { background: var(--w-offwhite); }
+
+    .w-time { font-size: 11px; font-weight: 600; color: var(--w-gray2); font-variant-numeric: tabular-nums; padding-top: 2px; white-space: nowrap; }
+    .w-name { font-size: 13px; font-weight: 600; line-height: 1.35; color: var(--w-text); }
+    .w-desc { font-size: 11px; font-weight: 400; color: var(--w-gray2); line-height: 1.4; margin-top: 2px; }
+
+    .w-badge {
+      font-size: 10px; font-weight: 700;
+      padding: 2px 7px; border-radius: 2px;
+      white-space: nowrap; flex-shrink: 0;
+      align-self: flex-start; margin-top: 2px;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    /* DETAIL PANEL */
+    .w-row.has-detail { cursor: pointer; }
+    .w-row.has-detail:hover .w-name { color: var(--w-navy); }
+    .w-expand-icon {
+      font-size: 10px; color: var(--w-gray2);
+      transition: transform 0.2s; display: inline-block;
+      margin-left: 5px; vertical-align: middle;
+    }
+    .w-expand-icon.open { transform: rotate(180deg); }
+
+    .w-detail {
+      display: none;
+      background: var(--w-navy);
+      padding: 0.75rem 1rem 0.75rem 1.5rem;
+      border-bottom: 1px solid rgba(0,43,110,0.3);
+    }
+    .w-detail.open { display: block; }
+
+    .w-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+    .w-detail-label {
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--w-lime); margin-bottom: 2px;
+    }
+    .w-detail-value {
+      font-size: 11.5px; color: rgba(255,255,255,0.85); line-height: 1.45;
+    }
+    .w-detail-value a { color: var(--w-lime); text-decoration: none; font-weight: 600; }
+    .w-detail-value a:hover { text-decoration: underline; }
+    .w-detail-desc {
+      font-size: 11.5px; color: rgba(255,255,255,0.9); line-height: 1.6;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      padding-top: 0.5rem; margin-top: 0.1rem;
+    }
+
+    .b-instruction { background: #EEF2FB; color: #002B6E; }
+    .b-group       { background: #FAFBEA; color: #4A5000; }
+    .b-feedback    { background: #FBF0EE; color: #5C1E10; }
+    .b-fieldwork   { background: #EEF4F8; color: #003A5C; }
+    .b-individual  { background: #F0F6EE; color: #1A4427; }
+    .b-qa          { background: #F2F0FB; color: #2E2266; }
+    .b-break       { background: var(--w-gray); color: var(--w-gray2); }
+
+    /* SHEET TABS */
+    .w-tabs {
+      background: var(--w-navy);
+      display: flex;
+      padding: 0 1.5rem;
+      gap: 0;
+      border-bottom: none;
+    }
+    .w-tab {
+      font-family: 'Source Sans 3', Arial, sans-serif;
+      font-size: 12px; font-weight: 600;
+      padding: 10px 18px 9px;
+      color: rgba(255,255,255,0.6);
+      border: none; background: transparent;
+      cursor: pointer; letter-spacing: 0.04em;
+      border-bottom: 3px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .w-tab:hover { color: rgba(255,255,255,0.9); }
+    .w-tab.active { color: var(--w-lime); border-bottom-color: var(--w-lime); }
+
+    /* SHEET PANELS */
+    .w-sheet { display: none; }
+    .w-sheet.active { display: block; }
+
+    /* LEARNING OBJECTIVES SHEET */
+    .lo-wrap { padding: 1.5rem 1.5rem 2.5rem; }
+
+    .lo-section { margin-bottom: 1.75rem; }
+
+    .lo-section-title {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--w-navy);
+      border-left: 4px solid var(--w-lime);
+      padding-left: 10px;
+      margin-bottom: 0.75rem;
+    }
+
+    .lo-outcome-box {
+      background: var(--w-navy);
+      color: rgba(255,255,255,0.92);
+      padding: 1rem 1.25rem;
+      border-left: 5px solid var(--w-lime);
+      font-size: 13px; line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .lo-grade-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .lo-grade-table th {
+      background: var(--w-navy);
+      color: var(--w-white);
+      font-weight: 600; font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 7px 12px; text-align: left;
+    }
+    .lo-grade-table td {
+      padding: 6px 12px;
+      border-bottom: 1px solid var(--w-gray);
+      color: var(--w-text);
+    }
+    .lo-grade-table tr:nth-child(even) td { background: var(--w-offwhite); }
+    .lo-grade-table td:last-child { font-weight: 600; color: var(--w-navy); }
+
+    .lo-conditions {
+      background: var(--w-offwhite);
+      border: 1px solid var(--w-gray);
+      padding: 0.75rem 1rem;
+      font-size: 12px; line-height: 1.7;
+      color: var(--w-text);
+    }
+    .lo-conditions span { display: block; padding-left: 1rem; position: relative; }
+    .lo-conditions span::before { content: '•'; position: absolute; left: 0; color: var(--w-lime); font-weight: 700; }
+
+    /* RUBRIC TABLE */
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      table-layout: fixed;
+    }
+    .rubric-table th {
+      background: var(--w-navy);
+      color: var(--w-white);
+      font-weight: 700; font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 8px 10px; text-align: left;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .rubric-table th:first-child { width: 14%; }
+    .rubric-table th:nth-child(2) { width: 22%; background: #B00000; }
+    .rubric-table th:nth-child(3) { width: 22%; background: #1A5276; }
+    .rubric-table th:nth-child(4) { width: 22%; background: #1A6634; }
+    .rubric-table th:nth-child(5) { width: 22%; background: #4A1990; }
+    .rubric-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--w-gray);
+      border-right: 1px solid var(--w-gray);
+      vertical-align: top;
+      line-height: 1.45;
+      color: var(--w-text);
+    }
+    .rubric-table td:first-child {
+      font-weight: 700; font-size: 11px;
+      background: var(--w-offwhite);
+      color: var(--w-navy);
+    }
+    .rubric-table td:nth-child(2) { background: #FFF5F5; }
+    .rubric-table td:nth-child(3) { background: #F0F6FF; }
+    .rubric-table td:nth-child(4) { background: #F0FFF5; }
+    .rubric-table td:nth-child(5) { background: #F5F0FF; }
+    .rubric-table tr:last-child td { border-bottom: none; }
+
+    /* PARAMETERS TABLE */
+    .params-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .params-table th {
+      background: var(--w-navy);
+      color: var(--w-white);
+      font-weight: 600; font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 7px 12px; text-align: left;
+    }
+    .params-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid var(--w-gray);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .params-table td:first-child { font-weight: 600; color: var(--w-navy); width: 35%; background: var(--w-offwhite); }
+    .params-table tr:last-child td { border-bottom: none; }
+
+    @media (max-width: 520px) {
+      .w-row { grid-template-columns: 68px 1fr; }
+      .w-row .w-badge { display: none; }
+      .w-title { font-size: 18px; }
+      .rubric-table th:first-child { width: 16%; }
+      .w-tab { padding: 10px 11px 9px; font-size: 11px; }
+    }
+  </style>
+</head>
+<body>
+<div class="w-wrap">
+
+  <div class="w-header">
+    <div class="w-logo-row">
+      <div class="w-logo-mark">W</div>
+      <div>
+        <div class="w-logo-text">Windesheim</div>
+        <div class="w-logo-sub">Dichter bij jou</div>
+      </div>
+    </div>
+    <div class="w-eyebrow">Blended Intensive Program · September 2026</div>
+    <div class="w-title">Hack Yourself into a Sustainable (Business) Design</div>
+  </div>
+
+  <!-- Sheet tabs -->
+  <div class="w-tabs">
+    <button class="w-tab active" data-tab="schedule">Schedule</button>
+    <button class="w-tab" data-tab="objectives">Learning objectives</button>
+  </div>
+
+  <!-- Sheet: Schedule -->
+  <div class="w-sheet active" id="sheet-schedule">
+    <div class="w-nav" id="wNav"></div>
+    <div class="w-timeline" id="wTimeline"></div>
+  </div>
+
+  <!-- Sheet: Learning objectives -->
+  <div class="w-sheet" id="sheet-objectives">
+    <div class="lo-wrap">
+
+      <div class="lo-section">
+        <div class="lo-section-title">Learning outcome (5 EC)</div>
+        <div class="lo-outcome-box">
+          The student largely autonomously designs and prototypes a sustainable (business) intervention in a complex, real-world challenge with an international, multidisciplinary team. They apply and integrate design and leadership methods to create and validate solutions, and critically evaluate their own and others&apos; intercultural collaboration under pressure to formulate evidence-based improvements for future professional practice.
+        </div>
+      </div>
+
+      <div class="lo-section">
+        <div class="lo-section-title">Assessment framework</div>
+        <table class="lo-grade-table">
+          <thead><tr><th>Word assessment</th><th>Grade equivalent</th></tr></thead>
+          <tbody>
+            <tr><td>Insufficient</td><td>4</td></tr>
+            <tr><td>Nearly sufficient</td><td>5</td></tr>
+            <tr><td>Sufficient</td><td>6</td></tr>
+            <tr><td>More than sufficient</td><td>7</td></tr>
+            <tr><td>Good</td><td>8</td></tr>
+            <tr><td>Very good</td><td>9</td></tr>
+            <tr><td>Excellent</td><td>10</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:0.75rem;">
+          <div class="lo-section-title" style="margin-bottom:0.5rem;">Conditions for assessment</div>
+          <div class="lo-conditions">
+            <span>The professional context in which the student operates is complex, multidisciplinary, and international.</span>
+            <span>Guidance is limited to coaching on demand.</span>
+            <span>The student acts with autonomy and professional responsibility.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="lo-section">
+        <div class="lo-section-title">Rubric criteria</div>
+        <div style="overflow-x:auto;">
+          <table class="rubric-table">
+            <thead>
+              <tr>
+                <th>Dimension</th>
+                <th>Insufficient</th>
+                <th>Sufficient</th>
+                <th>Good</th>
+                <th>Excellent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1. Autonomy &amp; Complexity Management</td>
+                <td>Depends on continuous guidance; struggles to act in an open, complex setting. Initiative and problem-structuring are limited.</td>
+                <td>Works largely independent within own role; takes initiative when prompted. Manages ambiguity with limited coaching.</td>
+                <td>Operates largely autonomously in a complex, uncertain context; proactively structures the process and supports effective collaboration.</td>
+                <td>Demonstrates full ownership; anticipates complexity, acts strategically, and guides others with confidence and flexibility.</td>
+              </tr>
+              <tr>
+                <td>2. Application &amp; Integration of Design and Leadership Methods</td>
+                <td>Uses methods in isolation without clear rationale or coherence; limited understanding of method–goal connection.</td>
+                <td>Selects and applies appropriate design and leadership methods to define, ideate, and test solutions.</td>
+                <td>Integrates and adapts methods coherently; decisions are well-reasoned and improve process and outcomes.</td>
+                <td>Creatively combines and justifies methods based on evidence and context; innovations are well-founded and effective.</td>
+              </tr>
+              <tr>
+                <td>3. Sustainable (Business) Intervention &amp; Validation</td>
+                <td>Prototype or concept lacks a clear sustainability focus, feasibility, or user validation.</td>
+                <td>Develops a feasible intervention incorporating relevant sustainability principles and stakeholder feedback.</td>
+                <td>Designs and tests a prototype that demonstrates sustainable value creation and stakeholder engagement.</td>
+                <td>Creates an innovative, evidence-based, and scalable intervention that generates tangible sustainable impact.</td>
+              </tr>
+              <tr>
+                <td>4. Intercultural &amp; Collaborative Effectiveness</td>
+                <td>Collaboration is inconsistent; limited awareness of intercultural dynamics or ineffective under time pressure.</td>
+                <td>Collaborates constructively with diverse team members; manages basic intercultural communication challenges.</td>
+                <td>Fosters an inclusive team environment and leverages cultural diversity to enhance creativity and results.</td>
+                <td>Acts as a facilitator for high-performing intercultural collaboration; strategically uses diversity as a driver for innovation.</td>
+              </tr>
+              <tr>
+                <td>5. Critical Reflection &amp; Professional Growth</td>
+                <td>Reflection is descriptive and lacks analysis of behavior, decisions, or cultural dynamics.</td>
+                <td>Reflects on personal role and collaboration outcomes; identifies learning points for improvement.</td>
+                <td>Critically evaluates own and team performance under pressure; translates insights into actionable professional improvements.</td>
+                <td>Demonstrates deep, evidence-based reflection on personal and intercultural effectiveness; formulates concrete, future-oriented development strategies.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="lo-section">
+        <div class="lo-section-title">Rubric parameters</div>
+        <table class="params-table">
+          <thead><tr><th>Parameter</th><th>Level / Description</th></tr></thead>
+          <tbody>
+            <tr><td>Complexity (ZelCom)</td><td>High — operates in open, authentic, and multidisciplinary challenges with uncertain outcomes.</td></tr>
+            <tr><td>Guidance (ZelCom)</td><td>Limited — student works independently; coaching on demand.</td></tr>
+            <tr><td>Autonomy (ZelCom)</td><td>High — self-directed professional responsibility for process and outcome.</td></tr>
+            <tr><td>Cognitive level (Bloom)</td><td>Apply → Analyse → Evaluate → Create</td></tr>
+            <tr><td>Assessment type</td><td>Performance-based: active participation in hackathon, prototype development, stakeholder validation, and individual reflective report/presentation.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+const phases = [
+  {
+    id:'before', label:'Online preparation', btn:'Online preparation', date:'14–15 September',
+    theme:'On the same page', loc:'Online — MS Teams',
+    obj:'Group forming and understanding the challenge on a basic level',
+    bg:'var(--c-before-bg)', dot:'var(--c-before-dot)', bdr:'var(--c-before-bdr)', txt:'var(--c-before-txt)',
+    sessions:[
+      {sub:'Monday 14 Sep — Bonding & branding'},
+      {time:'10:00–10:45',name:'Plenary kick-off & challenge introduction',desc:'BIP overview, expectations, students\' needs & worries, introduction of business challenges',badge:'instruction',
+        detail:{tool:'MS Teams, Mentimeter/Padlet',linkTool:{text:'Padlet',url:'https://padlet.com/'},linkSrc:{text:'',url:''},fullDesc:'Plenary session with introduction with lay-out of the BIP, expectations and check on students\u2019 expectations, needs and worries. Introduction of the business challenges, the companies behind and what is unclear for these companies.'}},
+      {time:'11:00–12:00',name:'Group formation & bonding',desc:'Team board in Miro, photo introductions, mapping each other\'s qualities and a plan to use them',badge:'group',
+        detail:{tool:'MS Teams (break-out), Miro',linkTool:{text:'Miro',url:'https://miro.com/app'},linkSrc:{text:'Build a customer journey map with your team online',url:'https://www.youtube.com/watch?v=0f4CZsmbh44'},fullDesc:'Group activity. Create a team board in Miro, add a photo and introduce yourself. How does the photo relate to study, work, city, etc. Also find out each others qualities. Make a plan to use each others qualities actively and to collect proof of that.'}},
+      {time:'12:00–12:30',name:'Group naming & branding',desc:'Choose group name, design logo and slogan',badge:'group',
+        detail:{tool:'MS Teams (break-out), Miro',linkTool:{text:'',url:''},linkSrc:{text:'',url:''},fullDesc:'Group activity. Choose a group name, design a logo and compose a slogan or yell, with video how to use Miro.'}},
+      {time:'13:00–13:30',name:'Feedback & bullet journaling',desc:'How to give/receive feedback respectfully; introduction to bullet journaling for personal leadership',badge:'instruction',
+        detail:{tool:'MS Teams',linkTool:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},linkSrc:{text:'',url:''},fullDesc:'Plenary session. Understanding how feedback can be given and used in a respectful and effective way, with the help of bullet journaling. Bullet journaling also helps to reflect on choices to substantiate personal leadership. Therefore actively taking part in feedback sessions is an important part of this BIP.'}},
+      {time:'13:30–14:45',name:'Group challenge reflection (Show & Share)',desc:'Each group presents what is clear, confusing, and interesting about their challenge — research poster format',badge:'feedback',
+        detail:{tool:'MS Teams (group channel), Miro',linkTool:{text:'Great Research Poster (Youtube)',url:'https://www.youtube.com/watch?v=ZwiTqrVfDFU'},linkSrc:{text:'',url:''},fullDesc:"Plenary session. Each group shows on one (Miro) frame/poster: what is clear, what is confusing and what seems interesting? Use the video 'prepare a poster that attracts feedback and approval'."}},
+      {time:'14:45–15:15',name:'Prep for Q&A with challenge owners',desc:'Formulate questions and remarks for the companies',badge:'instruction',
+        detail:{tool:'MS Teams',linkTool:{text:'',url:''},linkSrc:{text:'',url:''},fullDesc:'Plenary session. Prepare questions and remarks for the Q&A session with the challenge owners.'}},
+      {sub:'Tuesday 15 Sep — Understanding the challenge'},
+      {time:'10:00–11:00',name:'Live Q&A with challenge owners',desc:'Direct session with companies and lecturers',badge:'qa',
+        detail:{tool:'MS Teams, (evt breakouts)',linkTool:{text:'',url:''},linkSrc:{text:'',url:''},fullDesc:'Live session with companies and lecturers. Students ask questions prepared beforehand. Makes it real!'}},
+      {time:'11:15–11:45',name:'Introduction to Design Thinking + AI use',desc:'Iterative, human-centered design process overview with video material',badge:'instruction',
+        detail:{tool:'MS Teams, videoplatform',linkTool:{text:'The Design Thinking Process',url:'https://www.youtube.com/watch?v=_r0VX-aU_T8'},linkSrc:{text:'AI Assessment scale',url:'https://ai-assessment-scale-visualizer-eng-864666534570.us-west1.run.app/'},fullDesc:'Plenary session. Understanding the process of iterative working in a human centered design, with video material to watch later.'}},
+      {time:'11:45–12:00',name:'Introduction to Minto Pyramid Principle',desc:'Structured communication to engage your audience',badge:'instruction',
+        detail:{tool:'MS Teams, videoplatform',linkTool:{text:'The Minto Pyramid Principle',url:'https://www.youtube.com/watch?v=7By6jInNJw8'},linkSrc:{text:'',url:''},fullDesc:'Plenary session. Engaging the public with the Minto Pyramid principle, with video material to watch later.'}},
+      {time:'12:30–13:30',name:'Start Empathize — context map',desc:'Understand the company environment and context of the challenge',badge:'group',
+        detail:{tool:'MS Teams, (group channel), Miro',linkTool:{text:'The Context Map Canvas',url:'https://www.youtube.com/watch?v=XZ5yFmCpVyY'},linkSrc:{text:'',url:''},fullDesc:'Group activity. Understanding the environment of the company and context of the challenge, with video material to watch later.'}},
+      {time:'13:30–14:15',name:'Present context maps (Show & Share)',desc:'Each group presents using the Minto method',badge:'feedback',
+        detail:{tool:'MS Teams',linkTool:{text:'',url:''},linkSrc:{text:'',url:''},fullDesc:'Plenary session. Each group shows the context map and the usefulness of the data collection methods using the Minto method.'}},
+      {time:'14:30–15:15',name:'Stakeholder mapping',desc:'Identify stakeholders, levels of influence and interest in a structured way',badge:'group',
+        detail:{tool:'MS Teams, (group channel), Miro',linkTool:{text:'Identifying Stakeholders',url:'https://www.youtube.com/watch?v=8uZiGB8DeJg'},linkSrc:{text:'How to create a stakeholder map',url:'https://www.youtube.com/watch?v=HP2MZscvFl8'},fullDesc:'Group activity. Identifying stakeholders, and their levels of influence and interests, in a structured way.'}},
+      {time:'15:15–15:45',name:'Feedback on stakeholder maps',desc:'Lecturers give exploratory feedback; validate assumptions',badge:'feedback',
+        detail:{tool:'MS Teams, (group channel), Miro',linkTool:{text:'',url:''},linkSrc:{text:'',url:''},fullDesc:'Group activity, with lecturers. Feedback is given by lecturers and focused on an explorative approach and validating assumptions.'}},
+      {time:'15:45–16:00',name:'Bullet journal update',desc:'Individual reflection — learnings, questions, surprises',badge:'individual',
+        detail:{tool:'MS Individual, on or offline',linkTool:{text:'',url:''},linkSrc:{text:'',url:''},fullDesc:'Individual activity. Students write down things that wondered them, things they learned, things that they want to know more of (and investigate further), things they want to reflect on, things they want to talk about with others, etc.'}},
+      {time:'16:00–16:15',name:'Announcements & travel prep for physical week',desc:'Final questions and practical information for travelling to Zwolle and the start of the physical week',badge:'instruction',
+        detail:{tool:'MS Teams',linkTool:{text:'',url:''},linkSrc:{text:'',url:''},fullDesc:'Plenary closing. A moment to share everything that pops up regarding travelling and the start of the physical week.'}},
+    ]
+  },
+  {
+    id:'day1', label:'Day 1 — Physical week', btn:'Day 1', date:'Monday 21 September',
+    theme:'Open up', loc:'Windesheim, Campus 2 — Zwolle',
+    obj:'Getting to know each other and understanding expectations',
+    bg:'var(--c-d1-bg)', dot:'var(--c-d1-dot)', bdr:'var(--c-d1-bdr)', txt:'var(--c-d1-txt)',
+    sessions:[
+      {time:'11:30–12:00',name:'Welcome',desc:'Introduction of lecturers, locations, programme and groups',badge:'instruction',detail:{fullDesc:'Plenary session, introduction of the lecturers, locations, program and groups',src1:null,src2:null}},
+      {time:'12:00–13:00',name:'Group bonding',desc:'Physical bonding activity within and between groups',badge:'group',detail:{fullDesc:'Physical bonding activity within, and between, groups',src1:null,src2:null}},
+      {time:'13:00–13:45',name:'Lunch',desc:'Getting to know each other — Building C, Canteen',badge:'break',detail:{fullDesc:'Getting to know each other better with a good bite',src1:null,src2:null}},
+      {time:'13:45–14:15',name:'"Don\'t use Design Thinking" activity',desc:'Come up with the worst business idea ever — stimulates creative, out-of-the-box thinking with humour',badge:'group',detail:{fullDesc:'Activity in groups, stimulating a creative, out of the box mindset with humor',src1:null,src2:null}},
+      {time:'14:15–14:45',name:'Present your bad idea (Show & Share)',desc:'Explain why it\'s so bad using Minto — what design question does it NOT answer?',badge:'feedback',detail:{fullDesc:'Use the Minto method to state clear which question your solution isn\'t answering and how not using design thinking helped you with that',src1:null,src2:null}},
+      {time:'14:45–15:15',name:'Interviewing techniques',desc:'Try-out in groups; standard techniques and step plans for open, explorative interviews',badge:'instruction',detail:{fullDesc:'Plenary session, try-out in groups, pointing out importance of using the standard techniques and stepping plans for open interviews in an explorative research phase',src1:{text:'Be effective with asking the right questions',url:'https://www.youtube.com/watch?v=AmAbX3PxhGs'},src2:{text:'Conducting interviews with an Empathy Map',url:'https://www.youtube.com/watch?v=QwF9a56WFWA'}}},
+      {time:'15:15–15:30',name:'Break',desc:'',badge:'break'},
+      {time:'15:30–16:00',name:'Sustainable use of AI',desc:'AI literacy, ethical concerns, justification of AI-use as part of personal leadership',badge:'instruction',detail:{fullDesc:'Plenary session, determining level of AI-literacy, ethical concerns and justification of AI-use. This is also part of personal leadership and professional growth',src1:null,src2:null}},
+      {time:'16:00–16:30',name:'Pick your SDG(s)',desc:'Groups decide which Sustainable Development Goals their design must contribute to',badge:'group',detail:{fullDesc:'Activity in groups, think and decide to which SDG goals your design has to contribute',src1:null,src2:null}},
+      {time:'16:30–16:45',name:'Bullet journal update',desc:'Individual reflection — learnings, questions, surprises',badge:'individual',detail:{fullDesc:'Individual activity, students write down things that wondered them, things they learned, things that they want to know more of (and investigate further), things they want to reflect on, things they want to talk about with others, etc.',src1:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},src2:null}},
+      {time:'16:45–17:00',name:'First experiences check-out',desc:'Plenary wrap-up in popcorn style — first impressions and expectations',badge:'qa',detail:{fullDesc:'Plenary session, wrap-up, check-out in popcorn style',src1:null,src2:null}},
+    ]
+  },
+  {
+    id:'day2', label:'Day 2 — Physical week', btn:'Day 2', date:'Tuesday 22 September',
+    theme:'Design Challenge', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle',
+    obj:'Pinpoint the design question that needs to be answered to meet the client\'s objective',
+    bg:'var(--c-d2-bg)', dot:'var(--c-d2-dot)', bdr:'var(--c-d2-bdr)', txt:'var(--c-d2-txt)',
+    sessions:[
+      {time:'8:45–9:00',name:'Walk-in',desc:'Reception at Ketelhuis (boiler house)',badge:'break',detail:{fullDesc:'Reception at Ketelhuis (boiler house)',src1:null,src2:null}},
+      {time:'9:00–10:00',name:'Checking on the stakes',desc:'Confirm users, stakes and stakeholders with challenge owners — field work per group',badge:'fieldwork',detail:{fullDesc:'Identifying and confirming the users, stakes and stakeholders with the client / challenge owners',src1:null,src2:null}},
+      {time:'10:00–11:30',name:'Get out → Interview & observe',desc:'Fill in empathy map, environment map, or customer journey map; active field observation',badge:'fieldwork',detail:{fullDesc:'Fill in the empathy-, environment- or customer journey map',src1:{text:'Get better insights with observing and testing',url:'https://www.youtube.com/watch?v=vQytKCT563I'},src2:{text:'Be effective with asking the right questions',url:'https://www.youtube.com/watch?v=AmAbX3PxhGs'},src3:{text:'Conducting interviews with an Empathy Map',url:'https://www.youtube.com/watch?v=QwF9a56WFWA'}}},
+      {time:'11:30–12:30',name:'From data to insights — clustering',desc:'Short plenary intro, then groups cluster from user perspective: pains, gains, comforts, anxieties',badge:'group',detail:{fullDesc:'Short Plenary Introduction, after that groups cluster from the user perspective in pains, gains, comforts and anxieties',src1:{text:'Overcome your data deluge',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-870075'},src2:{text:'Defining the problem',url:'https://www.youtube.com/watch?v=TNAdanuvwtc'}}},
+      {time:'12:30–13:15',name:'Lunch',desc:'',badge:'break'},
+      {time:'13:15–14:00',name:'Pitch trial before teachers',desc:'Present a convincing story validated by data insights using the Minto method',badge:'feedback',detail:{fullDesc:'Present a convincing story, validated by insights from data, gathered with useful methods',src1:{text:'Writing a problem statement',url:'https://www.youtube.com/watch?v=cZLgh5JF_a8'},src2:{text:'The Minto Pyramid Principle',url:'https://www.youtube.com/watch?v=7By6jInNJw8'}}},
+      {time:'14:00–15:00',name:'Find the missing links → Get out',desc:'Use feedback to strengthen your case; more field interviews and observations',badge:'fieldwork',detail:{fullDesc:'Use feedback and feedforward to strengthen your case',src1:{text:'Get better insights with observing and testing',url:'https://www.youtube.com/watch?v=vQytKCT563I'},src2:{text:'Be effective with asking the right questions',url:'https://www.youtube.com/watch?v=AmAbX3PxhGs'},src3:{text:'Conducting interviews with an Empathy Map',url:'https://www.youtube.com/watch?v=QwF9a56WFWA'}}},
+      {time:'15:00–16:00',name:'Pitch preparation',desc:'Process insights into an evidence-based HMW question; define design criteria incl. SDG & stakeholders',badge:'group',detail:{fullDesc:'Process all insights into an evidence based HMW-question that engages the jury, define design criteria for the next phase',src1:{text:'Writing HMW questions',url:'https://www.youtube.com/watch?v=MJWLON3Sy4E'},src2:{text:'Translate insight into a HMW question',url:'https://www.youtube.com/watch?v=51SX9CpFBnc'},src3:{text:'Use design criteria to define your framework',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-754019'}}},
+      {time:'16:00–17:00',name:'Pitch & feedback (Show & Share)',desc:'Pitch design challenge with HMW question and design criteria; note feedback for the next pitch',badge:'feedback',detail:{fullDesc:'Pitch your design challenge with a HMW-question and design criteria (including SDG and stakeholder issues), take notes to process the feedback for the next pitch',src1:{text:'Writing HMW questions',url:'https://www.youtube.com/watch?v=MJWLON3Sy4E'},src2:{text:'Translate insight into a HMW question',url:'https://www.youtube.com/watch?v=51SX9CpFBnc'},src3:{text:'Use design criteria to define your framework',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-754019'}}},
+      {time:'17:00–17:30',name:'Bullet journal update',desc:'Individual reflection — learnings, questions, surprises',badge:'individual',detail:{fullDesc:'Individual activity, students write down things that wondered them, things they learned, things that they want to know more of, things they want to reflect on, things they want to talk about with others, etc.',src1:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},src2:null}},
+    ]
+  },
+  {
+    id:'day3', label:'Day 3 — Physical week', btn:'Day 3', date:'Wednesday 23 September',
+    theme:'Thinking (out) of the box', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle',
+    obj:'Come up with multiple feasible solutions that meet stakeholder requirements',
+    bg:'var(--c-d3-bg)', dot:'var(--c-d3-dot)', bdr:'var(--c-d3-bdr)', txt:'var(--c-d3-txt)',
+    sessions:[
+      {time:'8:15–9:00',name:'Breakfast',desc:'Reception at Ketelhuis',badge:'group',detail:{fullDesc:'Reception and breakfast at Ketelhuis',src1:null,src2:null}},
+      {time:'9:00–10:00',name:'HMW improvement',desc:'Process feedback on HMW and design criteria per group — led by lecturers',badge:'feedback',detail:{fullDesc:'Process feedback on HMW and design criteria per group by lecturers',src1:{text:'Writing HMW questions',url:'https://www.youtube.com/watch?v=MJWLON3Sy4E'},src2:{text:'Translate insight into a HMW question',url:'https://www.youtube.com/watch?v=51SX9CpFBnc'},src3:{text:'Use design criteria to define your framework',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-754019'}}},
+      {time:'10:00–11:00',name:'Creative brainstorming workshop',desc:'Learn to design effective brainstorming sessions; stimulate out-of-the-box thinking with different methods',badge:'instruction',detail:{fullDesc:'Teaching how to design an effective brainstorming session, stimulate to think of different methods and stimulating a creative, out of the box mindset',src1:{text:'Brainstorm guideline to generate new ideas',url:'https://www.youtube.com/watch?v=Tnn443xmhaE'},src2:{text:'Fast brainstorm energy with crazy eights',url:'https://www.youtube.com/watch?v=yz4g87XapQ0'},src3:{text:'Do a reverse brainstorm to keep ideas flowing',url:'https://www.youtube.com/watch?v=SOvwNKTTCqI'}}},
+      {time:'11:00–12:30',name:'Ideation in groups',desc:'Use Thinking Hats, SCAMPER, Lotus Blossom; leverage each other\'s qualities for effective ideation',badge:'group',detail:{fullDesc:'Ideating in groups, using different techniques depending on the desired \'leap\' in ideas. Think of the role of each group member. Find a tactic as a group to become more effective by using each other\'s qualities',src1:{text:'Use Thinking Hats to get ideas from different perspectives',url:'https://www.youtube.com/watch?v=oHiwpz7r4wY'},src2:{text:'Use an existing product to be creative with SCAMPER',url:'https://www.youtube.com/watch?v=-OMJINQIZzA&t=33s'},src3:{text:'With the lotus blossom technique you find 72 new ideas',url:'https://www.youtube.com/watch?v=eYzjM9un2p8&t=24s'}}},
+      {time:'12:30–13:15',name:'Lunch',desc:'',badge:'break'},
+      {time:'13:15–13:45',name:'Prioritising ideas (Kill your darlings)',desc:'COCD-box and impact/effort matrix to focus on the strongest ideas',badge:'group',detail:{fullDesc:'\'Kill your darlings\' session, to get focus on a few ideas to proceed with',src1:{text:'Categorize ideas in the COCD-box',url:'https://liveadminwindesheim-my.sharepoint.com/:v:/g/personal/nn0087894_windesheim_nl/EZIqiFmEaMhEs2efOp9pKJEBNb9O21liagLjxUSMDYRIlg?e=XhDfVs'},src2:{text:'Prioritize ideas based on impact and effort',url:'https://www.youtube.com/watch?v=xK7S1hupBos'}}},
+      {time:'13:45–14:15',name:'Ideation across groups — World Café',desc:'Groups exchange thoughts on each other\'s ideas; peer review',badge:'feedback',detail:{fullDesc:'\'World café\' on the ideas of the groups, groups exchange thoughts about each other\'s ideas, also this can be used as a \'kill your darlings\' review',src1:null,src2:null}},
+      {time:'14:15–15:00',name:'Test pitch (per group)',desc:'Groups pitch 2–3 ideas from feasible to long-shot using Minto and research poster',badge:'feedback',detail:{fullDesc:'Groups pitch 2 or 3 ideas, differing from feasible to \'long shot\', using the pitch techniques learned before (Minto Method, research poster)',src1:null,src2:null}},
+      {time:'15:00–16:00',name:'Working on the pitch',desc:'Process feedback on ideas; prepare final pitch presentation',badge:'group',detail:{fullDesc:'Groups process the received feedback on their ideas',src1:null,src2:null}},
+      {time:'16:00–16:45',name:'Pitches & jury questions (expert feedback)',desc:'Pitch idea with design challenge insights; give strong feedback to others. Points awarded!',badge:'feedback',detail:{fullDesc:'Pitch your idea, substantiating it with your design challenge insights, give strong feedback to others',src1:null,src2:null}},
+      {time:'16:45–17:00',name:'Bullet journal update',desc:'Individual reflection',badge:'individual',detail:{fullDesc:'Individual activity, students write down things that wondered them, things they learned, things that they want to know more of, things they want to reflect on, things they want to talk about with others, etc.',src1:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},src2:null}},
+      {time:'17:00–17:30',name:'Reviews & rewards',desc:'Groups receive votes/points — these count toward the final hackathon score',badge:'qa',detail:{fullDesc:'Groups receive votes or points for their ideas, these count in the total score at the end',src1:null,src2:null}},
+    ]
+  },
+  {
+    id:'day4', label:'Day 4 — Physical week', btn:'Day 4', date:'Thursday 24 September',
+    theme:'Proof of Concept', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle',
+    obj:'Validate your solution to convince the client to invest in it',
+    bg:'var(--c-d4-bg)', dot:'var(--c-d4-dot)', bdr:'var(--c-d4-bdr)', txt:'var(--c-d4-txt)',
+    sessions:[
+      {time:'8:45–9:00',name:'Walk-in',desc:'Reception at Ketelhuis',badge:'break',detail:{fullDesc:'Reception at Ketelhuis',src1:null,src2:null}},
+      {time:'9:00–10:00',name:'Moral deliberation & debate',desc:'Values, norms and virtues in AI, robotics, sustainability. How do design criteria help?',badge:'qa',detail:{fullDesc:'Conversation on norming certain values in e.g. using AI, robotics, water use. How do we make sure you practice your values in every day life (transferring them into norms and virtues)? Are you able to reflect in a critical but structured way on the impact of your actions on sustainability? How can design criteria help?',src1:null,src2:null}},
+      {time:'10:00–11:00',name:'Build rough prototype v1',desc:'Prototype that needs no words to be tested; design a test plan to check if it solves the design challenge',badge:'group',detail:{fullDesc:'Prepare a prototype which literally needs no words to be tested, design a test plan to determine if the prototype solves the design challenge',src1:{text:'Easy from idea to prototype',url:'https://www.youtube.com/watch?v=hKlRD7-kz4Y'},src2:{text:'Constructing early paper prototypes',url:'https://www.youtube.com/watch?v=85muhAaySps'}}},
+      {time:'11:00–11:45',name:'Test rough prototype on real users',desc:'Real-time user testing in broad outline; gather expert feedback',badge:'fieldwork',detail:{fullDesc:'Real-time user testing in broad outlines and gathering expert feedback',src1:{text:'Easy ways to prototype and validate your ideas',url:'https://www.youtube.com/watch?v=qYSJeY8w11Y'},src2:{text:'Use this prototype testing plan',url:'https://www.youtube.com/watch?v=8DdGU8LIgEg'}}},
+      {time:'11:45–12:30',name:'Build second prototype v2',desc:'Refine: must prove it answers the HMW question within design criteria',badge:'group',detail:{fullDesc:'Prepare a prototype which literally needs no words to be tested, design a test plan to prove that the prototype answers the HMW question and stays within the frame of the design criteria',src1:null,src2:null}},
+      {time:'12:30–13:15',name:'Lunch',desc:'',badge:'break'},
+      {time:'13:15–14:00',name:'Test second prototype in detail',desc:'Real-time user testing using a test-results matrix; Think Aloud protocol',badge:'fieldwork',detail:{fullDesc:'Real-time user testing in detail, using a test results matrix to make it imitable and reliable',src1:{text:'Get into users heads with Think Aloud testing',url:'https://www.youtube.com/watch?v=csR-D2dVe6E'},src2:{text:'How Stanford University conducts prototype testing',url:'https://www.youtube.com/watch?v=UbRIHZevrMo'}}},
+      {time:'14:00–15:00',name:'Expert feedback session',desc:'Groups pitch result using Minto and research poster; expert feedback',badge:'feedback',detail:{fullDesc:'Groups pitch the result they designed, using the pitch techniques learned before (Minto Method, research poster)',src1:null,src2:null}},
+      {time:'15:00–16:15',name:'Prepare the final pitch',desc:'Process feedback; design and refine the final pitch presentation',badge:'group',detail:{fullDesc:'Groups process the received feedback on their results, design and pitch',src1:null,src2:null}},
+      {time:'16:15–17:00',name:'🏆 Final pitch & jury interview',desc:'Prove your design and sell your result. Points awarded — cumulative score determines the winner!',badge:'feedback',detail:{fullDesc:'Prove your design, sell your result. Groups receive votes or points for their ideas, these count in the total score',src1:null,src2:null}},
+      {time:'17:00–17:15',name:'Bullet journal update',desc:'Individual reflection',badge:'individual',detail:{fullDesc:'Individual activity, students write down things that wondered them, things they learned, things that they want to know more of, things they want to reflect on, things they want to talk about with others, etc.',src1:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},src2:null}},
+      {time:'17:15–17:45',name:'🎉 Award ceremony',desc:'Group with most points wins the hackathon — condition: deliver a transfer document by next day',badge:'qa',detail:{fullDesc:'The group(s) with the most points overall, win the hackathon. Under the condition that they deliver a useful transfer document by the next day',src1:null,src2:null}},
+    ]
+  },
+  {
+    id:'day5', label:'Day 5 — Physical week', btn:'Day 5', date:'Friday 25 September',
+    theme:'Close the virtuous cycle', loc:'Windesheim, Campus 2 — Zwolle',
+    obj:'Collect learnings during the process to reuse effective concepts again',
+    bg:'var(--c-d5-bg)', dot:'var(--c-d5-dot)', bdr:'var(--c-d5-bdr)', txt:'var(--c-d5-txt)',
+    sessions:[
+      {time:'9:15–9:30',name:'Walk-in',desc:'Reception',badge:'break',detail:{fullDesc:'Reception',src1:null,src2:null}},
+      {time:'9:30–10:30',name:'Group journey reconstructed',desc:'Reconstruct the journey: assumptions → what changed → surprises → problem / insight / intervention / impact',badge:'group',detail:{fullDesc:'Each group reconstructs their journey, answering questions like \'what assumptions did we start with\', \'what changed\', \'what surprised us\'? Describe the steps problem, insight, intervention and impact.',src1:null,src2:null}},
+      {time:'10:30–10:45',name:'Break',desc:'',badge:'break'},
+      {time:'10:45–11:15',name:'Retrospective on personal role',desc:'Share interpersonal insights: qualities used, effect on others, group effectiveness tactics',badge:'individual',detail:{fullDesc:'Share your insights and learnings for later on the interpersonal level. How did you actively use each others\' qualities, how conscious were you of the effect of your actions on others? What did you do to make the group process more efficient? Did you have a tactic to use your qualities to make the group more effective?',src1:null,src2:null}},
+      {time:'11:15–12:15',name:'From prototype to product',desc:'Upgrade your design result into either an implementation roadmap, business case or pilot plan. Consider level of AI-use and justification.',badge:'group',detail:{fullDesc:'Group activity. Upgrade your design result into either an implementation roadmap, business case or pilot plan to run. Think of the level of AI-use and comparing level of justification.',src1:null,src2:null}},
+      {time:'12:15–12:45',name:'Break',desc:'',badge:'break'},
+      {time:'12:45–13:45',name:'Group challenge reflection (Show & Share)',desc:'Plenary session. Each group shows on one Miro frame/poster: their upgraded design using the methods learned, substantiated with a look at the credibility of the evidence.',badge:'feedback',detail:{fullDesc:'Plenary session. Each group shows on one (Miro) frame/poster: their upgraded design using the methods learned, and substantiates that with a look at the credibility of the evidence.',src1:null,src2:null}},
+      {time:'13:45–14:15',name:'Hand-in final work, thanks, remarks & farewell',desc:'Closing of the BIP — final submissions, last remarks and goodbye',badge:'instruction',detail:{fullDesc:'Closing of the BIP — final submissions, last remarks and goodbye',src1:null,src2:null}},
+    ]
+  }];
+
+const badgeLabels = {instruction:'Instruction',group:'Group work',feedback:'Show & Share',fieldwork:'Field work',individual:'Individual',qa:'Q&A',break:''};
+let active = 'all';
+
+function buildNav() {
+  const nav = document.getElementById('wNav');
+  const defs = [{id:'all',label:'All phases'},...phases.map(p=>({id:p.id,label:p.btn}))];
+  nav.innerHTML = defs.map(d => {
+    const isAll = d.id === 'all';
+    const cls = isAll ? 'w-btn all-active' : 'w-btn';
+    const style = isAll ? '' : (() => {
+      const p = phases.find(x=>x.id===d.id);
+      return `border-color:${p.bdr};color:${p.txt};background:transparent;`;
+    })();
+    return `<button class="${cls}" data-id="${d.id}" style="${style}">${d.label}</button>`;
+  }).join('');
+
+  nav.querySelectorAll('.w-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      active = btn.dataset.id;
+      nav.querySelectorAll('.w-btn').forEach(b => {
+        const id = b.dataset.id;
+        if (id === 'all') {
+          b.className = active === 'all' ? 'w-btn all-active' : 'w-btn all-inactive';
+          b.style = '';
+        } else {
+          const p = phases.find(x=>x.id===id);
+          if (active === id) {
+            b.style.cssText = `background:${p.dot};border-color:${p.dot};color:#fff;`;
+          } else {
+            b.style.cssText = `border-color:${p.bdr};color:${p.txt};background:transparent;`;
+          }
+        }
+      });
+      document.querySelectorAll('.w-phase').forEach(el => {
+        el.style.display = (active === 'all' || el.dataset.id === active) ? '' : 'none';
+      });
+    });
+  });
+}
+
+function buildTimeline() {
+  const tl = document.getElementById('wTimeline');
+  tl.innerHTML = '';
+  phases.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'w-phase';
+    el.dataset.id = p.id;
+
+    const rows = p.sessions.map((s, idx) => {
+      if (s.sub) return `<div class="w-subhd">${s.sub}</div>`;
+      const badge = s.badge && s.badge !== 'break'
+        ? `<span class="w-badge b-${s.badge}">${badgeLabels[s.badge]}</span>` : '<span></span>';
+      const desc = s.desc ? `<div class="w-desc">${s.desc}</div>` : '';
+      const hasDetail = !!s.detail;
+      const rowId = `${p.id}-row-${idx}`;
+
+      let detailHtml = '';
+      if (hasDetail) {
+        const d = s.detail;
+        // Online before format: tool + linkTool + linkSrc
+        // Days 1-5 format: src1 + src2
+        const toolHtml = d.tool ? `<div><div class="w-detail-label">Tool</div><div class="w-detail-value">${d.tool}</div></div>` : '';
+        const linkToolHtml = d.linkTool && d.linkTool.text
+          ? `<div><div class="w-detail-label">Link to tool</div><div class="w-detail-value"><a href="${d.linkTool.url}" target="_blank" rel="noopener">${d.linkTool.text}</a></div></div>` : '';
+        const linkSrcHtml = d.linkSrc && d.linkSrc.text
+          ? `<div><div class="w-detail-label">Link to source</div><div class="w-detail-value"><a href="${d.linkSrc.url}" target="_blank" rel="noopener">${d.linkSrc.text}</a></div></div>` : '';
+        const src1Html = d.src1 && d.src1.text
+          ? `<div><div class="w-detail-label">Source for instructions</div><div class="w-detail-value"><a href="${d.src1.url}" target="_blank" rel="noopener">${d.src1.text}</a></div></div>` : '';
+        const src2Html = d.src2 && d.src2.text
+          ? `<div><div class="w-detail-label">Additional source</div><div class="w-detail-value"><a href="${d.src2.url}" target="_blank" rel="noopener">${d.src2.text}</a></div></div>` : '';
+        const src3Html = d.src3 && d.src3.text
+          ? `<div><div class="w-detail-label">Additional source</div><div class="w-detail-value"><a href="${d.src3.url}" target="_blank" rel="noopener">${d.src3.text}</a></div></div>` : '';
+        const gridItems = [toolHtml, linkToolHtml, linkSrcHtml, src1Html, src2Html, src3Html].filter(Boolean).join('');
+        const gridHtml = gridItems ? `<div class="w-detail-grid">${gridItems}</div>` : '';
+        const descHtml = d.fullDesc ? `<div class="w-detail-desc">${d.fullDesc}</div>` : '';
+        detailHtml = `<div class="w-detail" id="${rowId}-detail">${gridHtml}${descHtml}</div>`;
+      }
+
+      const expandIcon = hasDetail ? `<span class="w-expand-icon" id="${rowId}-icon">▾</span>` : '';
+      const rowClass = hasDetail ? 'w-row has-detail' : 'w-row';
+      const clickAttr = hasDetail ? `onclick="toggleDetail('${rowId}')"` : '';
+
+      return `<div class="${rowClass}" ${clickAttr}>
+        <div class="w-time">${s.time||''}</div>
+        <div><div class="w-name">${s.name}${expandIcon}</div>${desc}</div>
+        ${badge}
+      </div>${detailHtml}`;
+    }).join('');
+
+    el.innerHTML = `
+      <div class="w-phase-hd" style="background:${p.bg};border-left-color:${p.dot};">
+        <div class="w-phase-hd-left">
+          <div class="w-phase-dot" style="background:${p.dot};"></div>
+          <div>
+            <div class="w-phase-label" style="color:${p.txt};">${p.label}</div>
+            <div class="w-phase-theme">Theme: ${p.theme}</div>
+          </div>
+        </div>
+        <div class="w-phase-right">
+          <span class="w-date-badge">${p.date}</span>
+          <span class="w-chevron">▾</span>
+        </div>
+      </div>
+      <div class="w-phase-body">
+        <div class="w-info-bar">
+          <span>📍 ${p.loc}</span>
+          <span>🎯 ${p.obj}</span>
+        </div>
+        <div class="w-sessions">${rows}</div>
+      </div>`;
+
+    el.querySelector('.w-phase-hd').addEventListener('click', () => {
+      const body = el.querySelector('.w-phase-body');
+      const chev = el.querySelector('.w-chevron');
+      const open = body.classList.toggle('open');
+      chev.classList.toggle('open', open);
+    });
+
+    tl.appendChild(el);
+  });
+}
+
+function toggleDetail(rowId) {
+  const detail = document.getElementById(rowId + '-detail');
+  const icon = document.getElementById(rowId + '-icon');
+  if (!detail) return;
+  const open = detail.classList.toggle('open');
+  if (icon) icon.classList.toggle('open', open);
+}
+
+buildNav();
+buildTimeline();
+
+// Tab switching
+document.querySelectorAll('.w-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.w-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.w-sheet').forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('sheet-' + tab.dataset.tab).classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
