@@ -549,8 +549,8 @@ const phases = [
     bg:'var(--c-d1-bg)', dot:'var(--c-d1-dot)', bdr:'var(--c-d1-bdr)', txt:'var(--c-d1-txt)',
     sessions:[
       {time:'11:30–12:00',name:'Welcome',desc:'Introduction of lecturers, locations, programme and groups',badge:'instruction',detail:{fullDesc:'Plenary session, introduction of the lecturers, locations, program and groups',src1:null,src2:null}},
-      {time:'12:00–13:00',name:'Group bonding',desc:'Physical bonding activity within and between groups',badge:'group',detail:{fullDesc:'Physical bonding activity within, and between, groups',src1:null,src2:null}},
-      {time:'13:00–13:45',name:'Lunch',desc:'Getting to know each other — Building C, Canteen',badge:'break',detail:{fullDesc:'Getting to know each other better with a good bite',src1:null,src2:null}},
+      {time:'12:00–12:45',name:'Lunch',desc:'Getting to know each other — Building C, Canteen',badge:'social',detail:{fullDesc:'Getting to know each other better with a good bite',src1:null,src2:null}},
+{time:'12:45–13:45',name:'Group bonding',desc:'Physical bonding activity within and between groups',badge:'social',detail:{fullDesc:'Physical bonding activity within, and between, groups',src1:null,src2:null}},
       {time:'13:45–14:15',name:'"Don\'t use Design Thinking" activity',desc:'Come up with the worst business idea ever — stimulates creative, out-of-the-box thinking with humour',badge:'group',detail:{fullDesc:'Activity in groups, stimulating a creative, out of the box mindset with humor',src1:null,src2:null}},
       {time:'14:15–14:45',name:'Present your bad idea (Show & Share)',desc:'Explain why it\'s so bad using Minto — what design question does it NOT answer?',badge:'feedback',detail:{fullDesc:'Use the Minto method to state clear which question your solution isn\'t answering and how not using design thinking helped you with that',src1:null,src2:null}},
       {time:'14:45–15:15',name:'Interviewing techniques',desc:'Try-out in groups; standard techniques and step plans for open, explorative interviews',badge:'instruction',detail:{fullDesc:'Plenary session, try-out in groups, pointing out importance of using the standard techniques and stepping plans for open interviews in an explorative research phase',src1:{text:'Be effective with asking the right questions',url:'https://www.youtube.com/watch?v=AmAbX3PxhGs'},src2:{text:'Conducting interviews with an Empathy Map',url:'https://www.youtube.com/watch?v=QwF9a56WFWA'}}},
@@ -585,7 +585,7 @@ const phases = [
     obj:'Come up with multiple feasible solutions that meet stakeholder requirements',
     bg:'var(--c-d3-bg)', dot:'var(--c-d3-dot)', bdr:'var(--c-d3-bdr)', txt:'var(--c-d3-txt)',
     sessions:[
-      {time:'8:15–9:00',name:'Breakfast',desc:'Reception at Ketelhuis',badge:'group',detail:{fullDesc:'Reception and breakfast at Ketelhuis',src1:null,src2:null}},
+      {time:'8:15–9:00',name:'Breakfast',desc:'Reception at Ketelhuis',badge:'social',detail:{fullDesc:'Reception and breakfast at Ketelhuis',src1:null,src2:null}},
       {time:'9:00–10:00',name:'HMW improvement',desc:'Process feedback on HMW and design criteria per group — led by lecturers',badge:'feedback',detail:{fullDesc:'Process feedback on HMW and design criteria per group by lecturers',src1:{text:'Writing HMW questions',url:'https://www.youtube.com/watch?v=MJWLON3Sy4E'},src2:{text:'Translate insight into a HMW question',url:'https://www.youtube.com/watch?v=51SX9CpFBnc'},src3:{text:'Use design criteria to define your framework',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-754019'}}},
       {time:'10:00–11:00',name:'Creative brainstorming workshop',desc:'Learn to design effective brainstorming sessions; stimulate out-of-the-box thinking with different methods',badge:'instruction',detail:{fullDesc:'Teaching how to design an effective brainstorming session, stimulate to think of different methods and stimulating a creative, out of the box mindset',src1:{text:'Brainstorm guideline to generate new ideas',url:'https://www.youtube.com/watch?v=Tnn443xmhaE'},src2:{text:'Fast brainstorm energy with crazy eights',url:'https://www.youtube.com/watch?v=yz4g87XapQ0'},src3:{text:'Do a reverse brainstorm to keep ideas flowing',url:'https://www.youtube.com/watch?v=SOvwNKTTCqI'}}},
       {time:'11:00–12:30',name:'Ideation in groups',desc:'Use Thinking Hats, SCAMPER, Lotus Blossom; leverage each other\'s qualities for effective ideation',badge:'group',detail:{fullDesc:'Ideating in groups, using different techniques depending on the desired \'leap\' in ideas. Think of the role of each group member. Find a tactic as a group to become more effective by using each other\'s qualities',src1:{text:'Use Thinking Hats to get ideas from different perspectives',url:'https://www.youtube.com/watch?v=oHiwpz7r4wY'},src2:{text:'Use an existing product to be creative with SCAMPER',url:'https://www.youtube.com/watch?v=-OMJINQIZzA&t=33s'},src3:{text:'With the lotus blossom technique you find 72 new ideas',url:'https://www.youtube.com/watch?v=eYzjM9un2p8&t=24s'}}},
@@ -636,7 +636,7 @@ const phases = [
     ]
   }];
 
-const badgeLabels = {instruction:'Instruction',group:'Group work',feedback:'Show & Share',fieldwork:'Field work',individual:'Individual',qa:'Q&A',break:''};
+const badgeLabels = {instruction:'Instruction',group:'Group work',feedback:'Show & Share',fieldwork:'Field work',individual:'Individual',social:'Social Activity',qa:'Q&A',break:''};
 let active = 'all';
 
 function buildNav() {
