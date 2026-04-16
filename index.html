@@ -544,7 +544,7 @@ const phases = [
   },
   {
     id:'day1', label:'Day 1 — Physical week', btn:'Day 1', date:'Monday 21 September',
-    theme:'Open up', loc:'Windesheim, Campus 2 — Zwolle',
+    theme:'Open up', loc:'Windesheim, Campus 2 — Zwolle', locUrl:'https://www.google.nl/maps/place/Hogeschool+Windesheim/@52.4995106,6.0774904,17z/data=!3m2!4b1!5s0x47c7ded497ca7281:0xb8777f2aad63c997!4m6!3m5!1s0x47c7ded4e818a589:0x68b47bb437213d3b!8m2!3d52.4995074!4d6.0800653!16zL20vMDYycWRs?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D',
     obj:'Getting to know each other and understanding expectations',
     bg:'var(--c-d1-bg)', dot:'var(--c-d1-dot)', bdr:'var(--c-d1-bdr)', txt:'var(--c-d1-txt)',
     sessions:[
@@ -563,7 +563,7 @@ const phases = [
   },
   {
     id:'day2', label:'Day 2 — Physical week', btn:'Day 2', date:'Tuesday 22 September',
-    theme:'Design Challenge', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle',
+    theme:'Design Challenge', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle', locUrl:'https://www.google.nl/maps/place/Makersfabriek/@52.5096084,6.0877475,14.92z/data=!4m6!3m5!1s0x47c7df9d54304825:0x9086501f1fb66e22!8m2!3d52.5203553!4d6.1162019!16s%2Fg%2F11x8hqnzwp?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D',
     obj:'Pinpoint the design question that needs to be answered to meet the client\'s objective',
     bg:'var(--c-d2-bg)', dot:'var(--c-d2-dot)', bdr:'var(--c-d2-bdr)', txt:'var(--c-d2-txt)',
     sessions:[
@@ -581,7 +581,7 @@ const phases = [
   },
   {
     id:'day3', label:'Day 3 — Physical week', btn:'Day 3', date:'Wednesday 23 September',
-    theme:'Thinking (out) of the box', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle',
+    theme:'Thinking (out) of the box', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle', locUrl:'https://www.google.nl/maps/place/Makersfabriek/@52.5096084,6.0877475,14.92z/data=!4m6!3m5!1s0x47c7df9d54304825:0x9086501f1fb66e22!8m2!3d52.5203553!4d6.1162019!16s%2Fg%2F11x8hqnzwp?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D',
     obj:'Come up with multiple feasible solutions that meet stakeholder requirements',
     bg:'var(--c-d3-bg)', dot:'var(--c-d3-dot)', bdr:'var(--c-d3-bdr)', txt:'var(--c-d3-txt)',
     sessions:[
@@ -601,7 +601,7 @@ const phases = [
   },
   {
     id:'day4', label:'Day 4 — Physical week', btn:'Day 4', date:'Thursday 24 September',
-    theme:'Proof of Concept', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle',
+    theme:'Proof of Concept', loc:'Makersfabriek, Ceintuurbaan 15 — Zwolle', locUrl:'https://www.google.nl/maps/place/Makersfabriek/@52.5096084,6.0877475,14.92z/data=!4m6!3m5!1s0x47c7df9d54304825:0x9086501f1fb66e22!8m2!3d52.5203553!4d6.1162019!16s%2Fg%2F11x8hqnzwp?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D',
     obj:'Validate your solution to convince the client to invest in it',
     bg:'var(--c-d4-bg)', dot:'var(--c-d4-dot)', bdr:'var(--c-d4-bdr)', txt:'var(--c-d4-txt)',
     sessions:[
@@ -621,7 +621,7 @@ const phases = [
   },
   {
     id:'day5', label:'Day 5 — Physical week', btn:'Day 5', date:'Friday 25 September',
-    theme:'Close the virtuous cycle', loc:'Windesheim, Campus 2 — Zwolle',
+    theme:'Close the virtuous cycle', loc:'Windesheim, Campus 2 — Zwolle', locUrl:'https://www.google.nl/maps/place/Hogeschool+Windesheim/@52.4995106,6.0774904,17z/data=!3m2!4b1!5s0x47c7ded497ca7281:0xb8777f2aad63c997!4m6!3m5!1s0x47c7ded4e818a589:0x68b47bb437213d3b!8m2!3d52.4995074!4d6.0800653!16zL20vMDYycWRs?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D',
     obj:'Collect learnings during the process to reuse effective concepts again',
     bg:'var(--c-d5-bg)', dot:'var(--c-d5-dot)', bdr:'var(--c-d5-bdr)', txt:'var(--c-d5-txt)',
     sessions:[
@@ -741,7 +741,7 @@ function buildTimeline() {
       </div>
       <div class="w-phase-body">
         <div class="w-info-bar">
-          <span>📍 ${p.loc}</span>
+          <span>📍 ${p.locUrl ? `<a href="${p.locUrl}" target="_blank" rel="noopener" style="color:var(--w-lime);text-decoration:none;font-weight:600;">${p.loc}</a>` : p.loc}</span>
           <span>🎯 ${p.obj}</span>
         </div>
         <div class="w-sessions">${rows}</div>
