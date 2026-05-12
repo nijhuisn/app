@@ -215,6 +215,7 @@
     .b-individual  { background: #F0F6EE; color: #1A4427; }
     .b-qa          { background: #F2F0FB; color: #2E2266; }
     .b-break       { background: var(--w-gray); color: var(--w-gray2); }
+    .b-assessment  { background: #B00000; color: #fff; letter-spacing: 0.06em; }
 
     /* SHEET TABS */
     .w-tabs {
@@ -536,6 +537,42 @@
         </table>
       </div>
 
+      <div class="lo-section">
+        <div class="lo-section-title">Assessment &amp; Deliverables</div>
+        <p style="font-size:13px; color:var(--w-gray2); line-height:1.7; margin-bottom:1rem;">
+          Students are assessed on the rubric criteria listed above. Assessment takes place during two types of moments: <strong style="color:var(--w-text);">pitch moments</strong> during the physical week and a <strong style="color:var(--w-text);">group challenge reflection</strong> at the end of the programme.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1rem;">
+
+          <div style="border:1px solid var(--w-gray); border-left:4px solid var(--c-d2-dot); border-radius:4px; padding:0.75rem 1rem; background:var(--c-d2-bg);">
+            <div style="font-weight:700; font-size:13px; color:var(--c-d2-txt); margin-bottom:0.25rem;">📢 Pitch — Day 2 &amp; Day 3 (Physical week)</div>
+            <div style="font-size:12.5px; color:var(--w-gray2); line-height:1.65;">
+              Intermediate pitch moments in which groups present their progress, insights and direction to lecturers and peers. These moments are part of the assessment and offer an opportunity for formative feedback.
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--w-gray); border-left:4px solid var(--c-d4-dot); border-radius:4px; padding:0.75rem 1rem; background:var(--c-d4-bg);">
+            <div style="font-weight:700; font-size:13px; color:var(--c-d4-txt); margin-bottom:0.25rem;">🏁 Final Pitch — Day 4 (Physical week)</div>
+            <div style="font-size:12.5px; color:var(--w-gray2); line-height:1.65;">
+              The summative assessment pitch in which each group presents their <strong style="color:var(--w-text);">final result</strong> to their client and the lecturers. The form and content of the final result — for example a report, prototype, roadmap or presentation — is determined by the students in consultation with their client during the BIP week.
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--w-gray); border-left:4px solid var(--c-d5-dot); border-radius:4px; padding:0.75rem 1rem; background:var(--c-d5-bg);">
+            <div style="font-weight:700; font-size:13px; color:var(--c-d5-txt); margin-bottom:0.25rem;">🔁 Group Challenge Reflection — Day 5 (Physical week)</div>
+            <div style="font-size:12.5px; color:var(--w-gray2); line-height:1.65;">
+              A structured group reflection session in which students look back on the challenge process, team collaboration and personal development. This session is part of the assessment and is evaluated against the rubric criteria, in particular <em>Critical Reflection &amp; Professional Growth</em> and <em>Intercultural &amp; Collaborative Effectiveness</em>.
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:var(--w-offwhite); border:1px solid var(--w-gray); border-left:4px solid var(--w-navy); padding:0.65rem 0.9rem; font-size:12px; color:var(--w-gray2); line-height:1.65; border-radius:0 4px 4px 0;">
+          All assessment moments are evaluated using the <strong style="color:var(--w-text);">rubric criteria</strong> defined in this learning outcomes overview. The final grade is a weighted result of performance across the pitch moments, the final deliverable and the group challenge reflection.
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -628,7 +665,7 @@ const phases = [
       {time:'13:15–14:00',name:'Pitch trial before teachers',desc:'Present a convincing story validated by data insights using the Minto method',badge:'feedback',detail:{fullDesc:'Present a convincing story, validated by insights from data, gathered with useful methods',src1:{text:'Writing a problem statement',url:'https://www.youtube.com/watch?v=cZLgh5JF_a8'},src2:{text:'The Minto Pyramid Principle',url:'https://www.youtube.com/watch?v=7By6jInNJw8'}}},
       {time:'14:00–15:00',name:'Find the missing links → Get out',desc:'Use feedback to strengthen your case; more field interviews and observations',badge:'fieldwork',detail:{fullDesc:'Use feedback and feedforward to strengthen your case',src1:{text:'Get better insights with observing and testing',url:'https://www.youtube.com/watch?v=vQytKCT563I'},src2:{text:'Be effective with asking the right questions',url:'https://www.youtube.com/watch?v=AmAbX3PxhGs'},src3:{text:'Conducting interviews with an Empathy Map',url:'https://www.youtube.com/watch?v=QwF9a56WFWA'}}},
       {time:'15:00–16:00',name:'Pitch preparation',desc:'Process insights into an evidence-based HMW question; define design criteria incl. SDG & stakeholders',badge:'group',detail:{fullDesc:'Process all insights into an evidence based HMW-question that engages the jury, define design criteria for the next phase',src1:{text:'Writing HMW questions',url:'https://www.youtube.com/watch?v=MJWLON3Sy4E'},src2:{text:'Translate insight into a HMW question',url:'https://www.youtube.com/watch?v=51SX9CpFBnc'},src3:{text:'Use design criteria to define your framework',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-754019'}}},
-      {time:'16:00–17:00',name:'Pitch & feedback (Show & Share)',desc:'Pitch design challenge with HMW question and design criteria; note feedback for the next pitch',badge:'feedback',detail:{fullDesc:'Pitch your design challenge with a HMW-question and design criteria (including SDG and stakeholder issues), take notes to process the feedback for the next pitch',src1:{text:'Writing HMW questions',url:'https://www.youtube.com/watch?v=MJWLON3Sy4E'},src2:{text:'Translate insight into a HMW question',url:'https://www.youtube.com/watch?v=51SX9CpFBnc'},src3:{text:'Use design criteria to define your framework',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-754019'}}},
+      {time:'16:00–17:00',name:'Pitch & feedback (Show & Share)',desc:'Pitch design challenge with HMW question and design criteria; note feedback for the next pitch',badge:'feedback',assessment:true,detail:{fullDesc:'Pitch your design challenge with a HMW-question and design criteria (including SDG and stakeholder issues), take notes to process the feedback for the next pitch',src1:{text:'Writing HMW questions',url:'https://www.youtube.com/watch?v=MJWLON3Sy4E'},src2:{text:'Translate insight into a HMW question',url:'https://www.youtube.com/watch?v=51SX9CpFBnc'},src3:{text:'Use design criteria to define your framework',url:'https://leren.windesheim.nl/d2l/common/dialogs/quickLink/quickLink.d2l?ou=156370&type=content&rcode=8094EC27-8BA9-4359-93EE-D0E7C055A1CC-754019'}}},
       {time:'17:00–17:30',name:'Bullet journal update',desc:'Individual reflection — learnings, questions, surprises',badge:'individual',detail:{fullDesc:'Individual activity, students write down things that wondered them, things they learned, things that they want to know more of, things they want to reflect on, things they want to talk about with others, etc.',src1:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},src2:null}},
     ]
   },
@@ -647,7 +684,7 @@ const phases = [
       {time:'13:45–14:15',name:'Ideation across groups — World Café',desc:'Groups exchange thoughts on each other\'s ideas; peer review',badge:'feedback',detail:{fullDesc:'\'World café\' on the ideas of the groups, groups exchange thoughts about each other\'s ideas, also this can be used as a \'kill your darlings\' review',src1:null,src2:null}},
       {time:'14:15–15:00',name:'Test pitch (per group)',desc:'Groups pitch 2–3 ideas from feasible to long-shot using Minto and research poster',badge:'feedback',detail:{fullDesc:'Groups pitch 2 or 3 ideas, differing from feasible to \'long shot\', using the pitch techniques learned before (Minto Method, research poster)',src1:null,src2:null}},
       {time:'15:00–16:00',name:'Working on the pitch',desc:'Process feedback on ideas; prepare final pitch presentation',badge:'group',detail:{fullDesc:'Groups process the received feedback on their ideas',src1:null,src2:null}},
-      {time:'16:00–16:45',name:'Pitches & jury questions (expert feedback)',desc:'Pitch idea with design challenge insights; give strong feedback to others. Points awarded!',badge:'feedback',detail:{fullDesc:'Pitch your idea, substantiating it with your design challenge insights, give strong feedback to others',src1:null,src2:null}},
+      {time:'16:00–16:45',name:'Pitches & jury questions (expert feedback)',desc:'Pitch idea with design challenge insights; give strong feedback to others. Points awarded!',badge:'feedback',assessment:true,detail:{fullDesc:'Pitch your idea, substantiating it with your design challenge insights, give strong feedback to others',src1:null,src2:null}},
       {time:'16:45–17:00',name:'Bullet journal update',desc:'Individual reflection',badge:'individual',detail:{fullDesc:'Individual activity, students write down things that wondered them, things they learned, things that they want to know more of, things they want to reflect on, things they want to talk about with others, etc.',src1:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},src2:null}},
       {time:'17:00–17:30',name:'Reviews & rewards',desc:'Groups receive votes/points — these count toward the final hackathon score',badge:'qa',detail:{fullDesc:'Groups receive votes or points for their ideas, these count in the total score at the end',src1:null,src2:null}},
     ]
@@ -667,7 +704,7 @@ const phases = [
       {time:'13:15–14:00',name:'Test second prototype in detail',desc:'Real-time user testing using a test-results matrix; Think Aloud protocol',badge:'fieldwork',detail:{fullDesc:'Real-time user testing in detail, using a test results matrix to make it imitable and reliable',src1:{text:'Get into users heads with Think Aloud testing',url:'https://www.youtube.com/watch?v=csR-D2dVe6E'},src2:{text:'How Stanford University conducts prototype testing',url:'https://www.youtube.com/watch?v=UbRIHZevrMo'}}},
       {time:'14:00–15:00',name:'Expert feedback session',desc:'Groups pitch result using Minto and research poster; expert feedback',badge:'feedback',detail:{fullDesc:'Groups pitch the result they designed, using the pitch techniques learned before (Minto Method, research poster)',src1:null,src2:null}},
       {time:'15:00–16:15',name:'Prepare the final pitch',desc:'Process feedback; design and refine the final pitch presentation',badge:'group',detail:{fullDesc:'Groups process the received feedback on their results, design and pitch',src1:null,src2:null}},
-      {time:'16:15–17:00',name:'🏆 Final pitch & jury interview',desc:'Prove your design and sell your result. Points awarded — cumulative score determines the winner!',badge:'feedback',detail:{fullDesc:'Prove your design, sell your result. Groups receive votes or points for their ideas, these count in the total score',src1:null,src2:null}},
+      {time:'16:15–17:00',name:'🏆 Final pitch & jury interview',desc:'Prove your design and sell your result. Points awarded — cumulative score determines the winner!',badge:'feedback',assessment:true,detail:{fullDesc:'Prove your design, sell your result. Groups receive votes or points for their ideas, these count in the total score',src1:null,src2:null}},
       {time:'17:00–17:15',name:'Bullet journal update',desc:'Individual reflection',badge:'individual',detail:{fullDesc:'Individual activity, students write down things that wondered them, things they learned, things that they want to know more of, things they want to reflect on, things they want to talk about with others, etc.',src1:{text:'Bullet journal in 5 minutes a day',url:'https://www.youtube.com/watch?v=T_Op4hrLSc4'},src2:null}},
       {time:'17:15–17:45',name:'🎉 Award ceremony',desc:'Group with most points wins the hackathon — condition: deliver a transfer document by next day',badge:'qa',detail:{fullDesc:'The group(s) with the most points overall, win the hackathon. Under the condition that they deliver a useful transfer document by the next day',src1:null,src2:null}},
     ]
@@ -684,7 +721,7 @@ const phases = [
       {time:'10:45–11:15',name:'Retrospective on personal role',desc:'Share interpersonal insights: qualities used, effect on others, group effectiveness tactics',badge:'individual',detail:{fullDesc:'Share your insights and learnings for later on the interpersonal level. How did you actively use each others\' qualities, how conscious were you of the effect of your actions on others? What did you do to make the group process more efficient? Did you have a tactic to use your qualities to make the group more effective?',src1:null,src2:null}},
       {time:'11:15–12:15',name:'From prototype to product',desc:'Upgrade your design result into either an implementation roadmap, business case or pilot plan. Consider level of AI-use and justification.',badge:'group',detail:{fullDesc:'Group activity. Upgrade your design result into either an implementation roadmap, business case or pilot plan to run. Think of the level of AI-use and comparing level of justification.',src1:null,src2:null}},
       {time:'12:15–12:45',name:'Break',desc:'',badge:'break'},
-      {time:'12:45–13:45',name:'Group challenge reflection (Show & Share)',desc:'Plenary session. Each group shows on one Miro frame/poster: their upgraded design using the methods learned, substantiated with a look at the credibility of the evidence.',badge:'feedback',detail:{fullDesc:'Plenary session. Each group shows on one (Miro) frame/poster: their upgraded design using the methods learned, and substantiates that with a look at the credibility of the evidence.',src1:null,src2:null}},
+      {time:'12:45–13:45',name:'Group challenge reflection (Show & Share)',desc:'Plenary session. Each group shows on one Miro frame/poster: their upgraded design using the methods learned, substantiated with a look at the credibility of the evidence.',badge:'feedback',assessment:true,detail:{fullDesc:'Plenary session. Each group shows on one (Miro) frame/poster: their upgraded design using the methods learned, and substantiates that with a look at the credibility of the evidence.',src1:null,src2:null}},
       {time:'13:45–14:15',name:'Hand-in final work, thanks, remarks & farewell',desc:'Closing of the BIP — final submissions, last remarks and goodbye',badge:'instruction',detail:{fullDesc:'Closing of the BIP — final submissions, last remarks and goodbye',src1:null,src2:null}},
     ]
   }];
@@ -739,8 +776,13 @@ function buildTimeline() {
 
     const rows = p.sessions.map((s, idx) => {
       if (s.sub) return `<div class="w-subhd">${s.sub}</div>`;
-      const badge = s.badge && s.badge !== 'break'
-        ? `<span class="w-badge b-${s.badge}">${badgeLabels[s.badge]}</span>` : '<span></span>';
+      const badgeMain = s.badge && s.badge !== 'break'
+        ? `<span class="w-badge b-${s.badge}">${badgeLabels[s.badge]}</span>` : '';
+      const badgeAssess = s.assessment
+        ? `<span class="w-badge b-assessment">&#9733; Assessment</span>` : '';
+      const badge = (badgeMain || badgeAssess)
+        ? `<div style="display:flex;flex-direction:column;gap:3px;align-items:flex-end">${badgeMain}${badgeAssess}</div>`
+        : '<span></span>';
       const desc = s.desc ? `<div class="w-desc">${s.desc}</div>` : '';
       const hasDetail = !!s.detail;
       const rowId = `${p.id}-row-${idx}`;
